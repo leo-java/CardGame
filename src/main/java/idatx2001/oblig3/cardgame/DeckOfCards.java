@@ -1,6 +1,5 @@
 package idatx2001.oblig3.cardgame;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 public class DeckOfCards {
@@ -15,7 +14,27 @@ public class DeckOfCards {
                 deckOfCards[counter] = new PlayingCard(c,i);
                 counter += 1;
             }
-
         }
+    }
+
+    public String getCard(int index){
+        return deckOfCards[index].getAsString();
+    }
+
+    public ArrayList<PlayingCard> dealHand(int n) throws IllegalArgumentException {
+        if (n < 1 || n > 52) {
+            throw new IllegalArgumentException("Please select a number between 1 and 52.");
+        }
+        ArrayList<PlayingCard> addToHand = new ArrayList<>();
+        PlayingCard newCard;
+        for(int i = 0; i < n; i++) {
+            newCard = deckOfCards[random.nextInt(52)];
+            if(addToHand.contains(newCard)) {
+                i -= 1;
+            } else {
+                addToHand.add(newCard);
+            }
+        }
+        return addToHand;
     }
 }

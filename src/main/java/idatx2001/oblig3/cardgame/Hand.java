@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Hand {
 
-    // Creates list of cards that will represents the hand.
     private final ArrayList<PlayingCard> hand;
 
     public Hand(ArrayList<PlayingCard> hand) {

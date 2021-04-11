@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class JavaFXController {
 
@@ -47,7 +48,11 @@ public class JavaFXController {
 
     public void dealHandButtonOnClick(){
         dealHand();
-        displayCards();
+        try {
+            displayCards();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         sumOfFaces.setText(Integer.toString(hand.sumCheck()));
         cardsOfHearts.setText(hand.heartsCheck());
         flush.setText(hand.flushCheck());
@@ -56,13 +61,22 @@ public class JavaFXController {
 
     public void dealHand(){
         this.hand = new Hand(deck.dealHand(5));
+        System.out.println("Dealt hand " + hand.getCardAt(0).getAsString() +
+                hand.getCardAt(1).getAsString() +
+                hand.getCardAt(2).getAsString() +
+                hand.getCardAt(3).getAsString() +
+                hand.getCardAt(4).getAsString());
     }
 
-    public void displayCards(){
-        card0.setImage(new Image(this.getClass().getResourceAsStream("/cards/PNG/" + hand.getCardAt(0).getAsString() + ".png")));
-        card1.setImage(new Image(this.getClass().getResourceAsStream("/cards/PNG/" + hand.getCardAt(1).getAsString() + ".png")));
-        card2.setImage(new Image(this.getClass().getResourceAsStream("/cards/PNG/" + hand.getCardAt(2).getAsString() + ".png")));
-        card3.setImage(new Image(this.getClass().getResourceAsStream("/cards/PNG/" + hand.getCardAt(3).getAsString() + ".png")));
-        card4.setImage(new Image(this.getClass().getResourceAsStream("/cards/PNG/" + hand.getCardAt(4).getAsString() + ".png")));
+    public void displayCards() throws FileNotFoundException{
+        //DisplayCards fungerer ikke pga noe merkelig med path, alle paths som ble forsøkt ga feilmelding
+        /*card1.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/cards/PNG/" +
+                hand.getCardAt(1).getAsString() + ".png"))));
+        card2.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/cards/PNG/" +
+                hand.getCardAt(2).getAsString() + ".png"))));
+        card3.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/cards/PNG/" +
+                hand.getCardAt(3).getAsString() + ".png"))));
+        card4.setImage(new Image(Objects.requireNonNull(this.getClass().getResourceAsStream("/cards/PNG/" +
+                hand.getCardAt(4).getAsString() + ".png"))));*/
     }
 }
